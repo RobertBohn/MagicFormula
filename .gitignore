@@ -1,0 +1,10 @@
+null
+.idea
+.project
+.classpath
+.settings
+.idea/
+/README.txt
+*.iml
+config.properties
+README.txt
