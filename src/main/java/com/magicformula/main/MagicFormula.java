@@ -20,7 +20,6 @@ public class MagicFormula {
             String uri = "http://edgaronline.api.mashery.com/v2/companies.json?siccodes=2330&appkey=j7ezdsmr6yhnx7r8u36hrc8k";
             String results = WebReader.read(uri);
 
-      
             Response response = mapper.readValue(results, Response.class);
             System.out.println("Rows: " + response.getResult().getRows().length);
         } catch (IOException e) {

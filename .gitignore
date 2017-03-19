@@ -4,6 +4,7 @@ null
 .classpath
 .settings
 .idea/
+target/
 /README.txt
 *.iml
 config.properties
