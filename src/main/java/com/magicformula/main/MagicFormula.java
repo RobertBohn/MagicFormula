@@ -7,21 +7,26 @@ import com.magicformula.util.ClassFactory;
 import com.magicformula.util.WebReader;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Created by robert on 3/19/17.
  */
 public class MagicFormula {
 
+    public static Properties properties = new Properties();
+
     public static void main( final String[] args ) {
+
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            String uri = "http://edgaronline.api.mashery.com/v2/companies.json?siccodes=2330&appkey=j7ezdsmr6yhnx7r8u36hrc8k";
+            properties.load(MagicFormula.class.getClassLoader().getResourceAsStream("Config.properties"));
+
+            String key = properties.getProperty("edgarkey");
+            String uri = "http://edgaronline.api.mashery.com/v2/companies.json?siccodes=2330&appkey=" + key;
             String results = WebReader.read(uri);
             Response response = mapper.readValue(results, Response.class);
-
             for (Rows row : response.getResult().getRows()) {
                 Company company = (Company) ClassFactory.create(Company.class, row.getValues());
                 System.out.println(company.getCompanyname());
