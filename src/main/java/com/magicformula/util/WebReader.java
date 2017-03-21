@@ -8,11 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 
-/**
- * Created by robert on 3/19/17.
- */
 public class WebReader {
 
     private static Logger logger = Logger.getLogger(WebReader.class);
