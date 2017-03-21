@@ -13,7 +13,7 @@ public class WebReader {
 
     private static Logger logger = Logger.getLogger(WebReader.class);
 
-    private static final int TIMEOUT = 2000;
+    private static final int TIMEOUT = 3000;
 
     public static String read(String url) {
 

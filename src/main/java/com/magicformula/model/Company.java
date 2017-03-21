@@ -5,15 +5,15 @@ package com.magicformula.model;
  */
 public class Company {
 
-    private String cik;
-    private String companyname;
-    private String entityid;
-    private String primaryexchange;
-    private String marketoperator;
-    private String markettier;
-    private String primarysymbol;
-    private String siccode;
-    private String sicdescription;
+    public String cik;
+    public String companyname;
+    public String entityid;
+    public String primaryexchange;
+    public String marketoperator;
+    public String markettier;
+    public String primarysymbol;
+    public String siccode;
+    public String sicdescription;
 
     public String getCik() {
         return cik;

@@ -1,12 +1,9 @@
 package com.magicformula.main;
 
-import com.magicformula.process.PopulateCompanies;
+import com.magicformula.process.PopulateFinancials;
 
 import java.util.Properties;
 
-/**
- * Created by robert on 3/19/17.
- */
 public class MagicFormula {
 
     public static Properties properties = new Properties();
@@ -14,7 +11,12 @@ public class MagicFormula {
     public static void main( final String[] args ) {
         try {
             properties.load(MagicFormula.class.getClassLoader().getResourceAsStream("config.properties"));
-            PopulateCompanies.populate();
+
+
+            PopulateFinancials.populate();
+
+
+            // PopulateCompanies.populate();
         } catch (Exception e) {
             e.printStackTrace();
         }
