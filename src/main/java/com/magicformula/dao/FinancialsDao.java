@@ -28,7 +28,7 @@ public class FinancialsDao {
         int i=1;
 
         preparedStatement.setString(i++, financials.getPrimarysymbol());
-        preparedStatement.setString(i++, financials.getPeriodenddate());
+        preparedStatement.setDate(i++, financials.getPeriodenddate());
         preparedStatement.setDouble(i++, financials.getEbit());
         preparedStatement.setDouble(i++, financials.getTotalcurrentassets());
         preparedStatement.setDouble(i++, financials.getTotalcurrentliabilities());

@@ -1,14 +1,20 @@
 package com.magicformula.util;
 
 import com.magicformula.model.Values;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
+import java.sql.Date;
 
 public class ClassFactory {
+
+    private static DateTimeFormatter inputDateFormat = DateTimeFormat.forPattern("MM/dd/yyyy");
 
     public static Object create(java.lang.Class clazz, Values[] values) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
 
@@ -35,6 +41,13 @@ public class ClassFactory {
                 if (field.getType().getCanonicalName().equals("java.lang.String")) {
                     Method method = clazz.getMethod(setterName, new Class[]{String.class});
                     method.invoke(obj, value.getValue());
+                }
+
+                if (field.getType().getCanonicalName().equals("java.sql.Date")) {
+                    DateTime datetime = new DateTime(inputDateFormat.parseMillis(value.getValue()));
+                    Date date = new Date(datetime.toDate().getTime());
+                    Method method = clazz.getMethod(setterName, new Class[]{Date.class});
+                    method.invoke(obj, date);
                 }
             }
         }

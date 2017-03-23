@@ -1,12 +1,14 @@
 package com.magicformula.model;
 
+import java.sql.Date;
+
 /**
  * Created by robert on 3/21/17.
  */
 public class Financials {
 
     public String primarysymbol;
-    public String periodenddate;
+    public Date periodenddate;
     public Double ebit;
     public Double totalcurrentassets;
     public Double totalcurrentliabilities;
@@ -24,11 +26,11 @@ public class Financials {
         this.primarysymbol = primarysymbol;
     }
 
-    public String getPeriodenddate() {
+    public Date getPeriodenddate() {
         return periodenddate;
     }
 
-    public void setPeriodenddate(String periodenddate) {
+    public void setPeriodenddate(Date periodenddate) {
         this.periodenddate = periodenddate;
     }
 

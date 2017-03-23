@@ -25,8 +25,6 @@ public class PopulateFinancials {
         String ticker = "AAPL";
 
 
-
-
         String uri = String.format("http://edgaronline.api.mashery.com/v2/corefinancials/ttm.json?primarysymbols=%s&appkey=%s", ticker, key);
         String results = WebReader.read(uri);
         Response response = mapper.readValue(results, Response.class);
@@ -36,6 +34,7 @@ public class PopulateFinancials {
                 Financials financials = (Financials) ClassFactory.create(Financials.class, row.getValues());
                 financialsDao.insert(financials);
                 System.out.println("  " + financials.getPrimarysymbol());
+                break;
             }
         }
     }
