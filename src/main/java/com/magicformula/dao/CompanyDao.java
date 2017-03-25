@@ -14,14 +14,14 @@ public class CompanyDao {
             "(cik, companyname, entityid, primaryexchange, marketoperator, markettier, primarysymbol, siccode, sicdescription) " +
             "values(?,?,?,?,?,?,?,?,?)";
 
-    private static final String SELECT_TICKERS = "select primarysymbol from company where primarysymbol >= '' " +
+    private static final String SELECT_TICKERS = "select primarysymbol from company where primarysymbol >= '%s' " +
             " and primarysymbol not in ('ZRPTIX') order by primarysymbol";
 
     private Connection connect;
 
     public CompanyDao() throws SQLException {
         connect = DriverManager.getConnection(MagicFormula.properties.getProperty("dbconnect"));
-        connect.setNetworkTimeout(Executors.newFixedThreadPool(10), 3000);
+        connect.setNetworkTimeout(Executors.newFixedThreadPool(2), 3000);
     }
 
     public void insert(Company company) throws SQLException {
@@ -44,7 +44,8 @@ public class CompanyDao {
 
     public Set<String> getTickers() throws SQLException {
         Set<String> set = new TreeSet();
-        PreparedStatement preparedStatement = connect.prepareStatement(SELECT_TICKERS);
+        String statement = String.format(SELECT_TICKERS, MagicFormula.properties.getProperty("start"));
+        PreparedStatement preparedStatement = connect.prepareStatement(statement);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             set.add(resultSet.getString("primarysymbol"));

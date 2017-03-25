@@ -36,9 +36,10 @@ public class PriceDao {
     }
 
     private void setDouble(PreparedStatement preparedStatement, int index, Double value) throws SQLException {
-        if (value == null)
+        if (value == null) {
             preparedStatement.setNull(index, Types.DOUBLE);
-        else
+        } else {
             preparedStatement.setDouble(index, value);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.magicformula.process;
 import au.com.bytecode.opencsv.CSVParser;
 import com.magicformula.dao.CompanyDao;
 import com.magicformula.dao.PriceDao;
+import com.magicformula.main.MagicFormula;
 import com.magicformula.model.Price;
 import com.magicformula.util.WebReader;
 import org.joda.time.DateTime;
@@ -28,7 +29,11 @@ public class PopulatePrice {
     private static final int SHARES_OUTSTANDING = 5;
     private static final int DIVIDEND_PER_SHARE = 6;
 
-    public PopulatePrice() throws SQLException {
+    public static PopulatePrice getInstance() throws SQLException {
+        return new PopulatePrice();
+    }
+
+    private PopulatePrice() throws SQLException {
         companyDao = new CompanyDao();
         priceDao = new PriceDao();
         csvParser = new CSVParser();
@@ -55,7 +60,7 @@ public class PopulatePrice {
         }
     }
 
-    public void populateTickers(String list) throws Exception {
+    private void populateTickers(String list) throws Exception {
         String uri = String.format(YOHOO, list);
         String results = WebReader.read(uri);
         String[] lines = results.split("\n");
@@ -84,11 +89,11 @@ public class PopulatePrice {
         Thread.sleep(1000);
     }
 
-    public static Double getDouble(String value) {
+    private Double getDouble(String value) {
         return value.equals("N/A") ? null : Double.parseDouble(value);
     }
 
-    public Date getDate(String value) {
+    private Date getDate(String value) {
         if (value.equals("N/A")) {
             return null;
         }

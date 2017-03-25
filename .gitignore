@@ -7,5 +7,5 @@ null
 target/
 /README.txt
 *.iml
-config.properties
+src/main/resources/config.properties
 README.txt
