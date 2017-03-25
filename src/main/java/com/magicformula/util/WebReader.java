@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -13,18 +14,24 @@ public class WebReader {
 
     private static Logger logger = Logger.getLogger(WebReader.class);
 
-    private static final int TIMEOUT = 3000;
+    private static final int TIMEOUT = 6000;
 
     public static String read(String url) {
 
         InputStream inputStream = null;
         String results = "";
+
         try {
-            URLConnection connection = new URL(url).openConnection();
-            connection.setReadTimeout(TIMEOUT);
-            connection.connect();
-            inputStream = connection.getInputStream();
-            results = IOUtils.toString(inputStream, Charsets.UTF_8);
+            for (int i=1; i<=3; i++) {
+                inputStream = readAttempt(url);
+                if (inputStream != null) {
+                    results = IOUtils.toString(inputStream, Charsets.UTF_8);
+                    break;
+                } else {
+                    System.out.println("Read Attempt #" + i);
+                }
+            }
+            return results;
         } catch (final Exception e) {
             logger.error(url, e);
         } finally {
@@ -34,7 +41,18 @@ public class WebReader {
         return results;
     }
 
-    private static void  safeClose(InputStream inputStream) {
+    public static InputStream readAttempt(String url) throws Exception {
+        try {
+            URLConnection connection = new URL(url).openConnection();
+            connection.setReadTimeout(TIMEOUT);
+            connection.connect();
+            return connection.getInputStream();
+        } catch (SocketTimeoutException ex) {
+            return null;
+        }
+    }
+
+    private static void safeClose(InputStream inputStream) {
         if (inputStream != null) {
             try {
                 inputStream.close();

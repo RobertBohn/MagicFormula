@@ -23,7 +23,6 @@ public class PopulateCompanies {
         // PopulateCompanies.populate(7380,10000,10);
     }
 
-
     private static void populate(int start, int stop, int range) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         CompanyDao companyDao = new CompanyDao();
@@ -45,8 +44,10 @@ public class PopulateCompanies {
 
             for (Rows row : response.getResult().getRows()) {
                 Company company = (Company) ClassFactory.create(Company.class, row.getValues());
-                companyDao.insert(company);
-                System.out.println(String.format("   %s: %s", company.getSiccode(), company.getCompanyname()));
+                if (company.getPrimarysymbol() != null && company.getPrimarysymbol().length() > 0) {
+                    companyDao.insert(company);
+                    System.out.println(String.format("   %s: %s", company.getSiccode(), company.getCompanyname()));
+                }
             }
 
             Thread.sleep(1500);

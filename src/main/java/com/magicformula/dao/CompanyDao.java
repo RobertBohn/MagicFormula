@@ -4,6 +4,8 @@ import com.magicformula.main.MagicFormula;
 import com.magicformula.model.Company;
 
 import java.sql.*;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.Executors;
 
 public class CompanyDao {
@@ -11,6 +13,9 @@ public class CompanyDao {
     private static final String INSERT = "replace into company " +
             "(cik, companyname, entityid, primaryexchange, marketoperator, markettier, primarysymbol, siccode, sicdescription) " +
             "values(?,?,?,?,?,?,?,?,?)";
+
+    private static final String SELECT_TICKERS = "select primarysymbol from company where primarysymbol >= '' " +
+            " and primarysymbol not in ('ZRPTIX') order by primarysymbol";
 
     private Connection connect;
 
@@ -35,5 +40,16 @@ public class CompanyDao {
 
         preparedStatement.executeUpdate();
         preparedStatement.close();
+    }
+
+    public Set<String> getTickers() throws SQLException {
+        Set<String> set = new TreeSet();
+        PreparedStatement preparedStatement = connect.prepareStatement(SELECT_TICKERS);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            set.add(resultSet.getString("primarysymbol"));
+        }
+        resultSet.close();
+        return set;
     }
 }

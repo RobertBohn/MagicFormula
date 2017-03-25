@@ -25,3 +25,14 @@ totallongtermdebt        BIGINT default null,
 cashandcashequivalents   BIGINT default null,
 unique key primarysymbol (primarysymbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+create table price (
+primarysymbol         varchar(10) not null,
+companyname           varchar(100) default null,
+lasttradedate         date default null,
+sharesoutstanding     BIGINT default null,
+averagedailyvolume    BIGINT default null,
+closingprice          double(10,2) default null,
+dividendpershare      double(10,4) default null,
+unique key primarysymbol (primarysymbol)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1

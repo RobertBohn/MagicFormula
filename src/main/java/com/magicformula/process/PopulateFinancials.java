@@ -1,5 +1,6 @@
 package com.magicformula.process;
 
+import com.magicformula.dao.CompanyDao;
 import com.magicformula.dao.FinancialsDao;
 import com.magicformula.main.MagicFormula;
 import com.magicformula.model.Financials;
@@ -12,30 +13,52 @@ import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.Set;
 
 public class PopulateFinancials {
 
-    public static void populate() throws IOException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException, InstantiationException, IllegalAccessException, SQLException {
-        ObjectMapper mapper = new ObjectMapper();
-        FinancialsDao financialsDao = new FinancialsDao();
-        String key = MagicFormula.properties.getProperty("edgarkey");
+    private ObjectMapper mapper;
+    private CompanyDao companyDao;
+    private FinancialsDao financialsDao;
+    private String key;
 
+    public PopulateFinancials() throws Exception {
+        mapper = new ObjectMapper();
+        companyDao = new CompanyDao();
+        financialsDao = new FinancialsDao();
+        key = MagicFormula.properties.getProperty("edgarkey");
+    }
 
+    public void populate() throws Exception {
+        Set<String> tickers = companyDao.getTickers();
+        int count = 0;
+        String list = "";
+        for (String ticker : tickers) {
+            if (count++ == 0) {
+                list = ticker;
+            } else {
+                list += "," + ticker;
+            }
+            if (count == 10) {
+                populateTickers(list);
+                list = "";
+                count = 0;
+            }
+        }
+        if (list.length() > 0) {
+            populateTickers(list);
+        }
+    }
 
-        String ticker = "AAPL";
-
-
-        String uri = String.format("http://edgaronline.api.mashery.com/v2/corefinancials/ttm.json?primarysymbols=%s&appkey=%s", ticker, key);
+    public void populateTickers(String list) throws Exception {
+        String uri = String.format("http://edgaronline.api.mashery.com/v2/corefinancials/ttm.json?primarysymbols=%s&numperiods=1&appkey=%s", list, key);
         String results = WebReader.read(uri);
         Response response = mapper.readValue(results, Response.class);
 
         for (Rows row : response.getResult().getRows()) {
-            if (row.getRownum().equals("1")) {
-                Financials financials = (Financials) ClassFactory.create(Financials.class, row.getValues());
-                financialsDao.insert(financials);
-                System.out.println("  " + financials.getPrimarysymbol());
-                break;
-            }
+            Financials financials = (Financials) ClassFactory.create(Financials.class, row.getValues());
+            System.out.println("  " + financials.getPrimarysymbol());
+            financialsDao.insert(financials);
         }
     }
 }
