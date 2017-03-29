@@ -22,6 +22,10 @@ public class PopulateFinancials {
     private FinancialsDao financialsDao;
     private String key;
 
+    public static PopulateFinancials getInstance() throws Exception {
+        return new PopulateFinancials();
+    }
+
     public PopulateFinancials() throws Exception {
         mapper = new ObjectMapper();
         companyDao = new CompanyDao();

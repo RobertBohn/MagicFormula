@@ -12,6 +12,7 @@ sicdescription    varchar(200) default null,
 unique key primarysymbol (primarysymbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
+
 create table financials (
 primarysymbol            varchar(10) not null,
 periodenddate            date default null,
@@ -26,6 +27,7 @@ cashandcashequivalents   BIGINT default null,
 unique key primarysymbol (primarysymbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
+
 create table price (
 primarysymbol         varchar(10) not null,
 companyname           varchar(100) default null,
@@ -36,3 +38,43 @@ closingprice          double(10,2) default null,
 dividendpershare      double(10,4) default null,
 unique key primarysymbol (primarysymbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+create table rank (
+  primarysymbol            varchar(10) not null,
+  returnoncapitalrank      integer not null,
+  earningsyieldrank        integer not null,
+  combinedrank             integer not null,
+  unique key primarysymbol (primarysymbol)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+/********************************************************************************/
+
+create table performance as
+
+  select
+    p.primarysymbol,
+    ebit / ((totalcurrentassets - totalcurrentliabilities) + (totalassets - totalcurrentassets - ifnull(intangibleassets,0))) returnoncapital,
+    ebit / ((sharesoutstanding * closingprice) + (ifnull(totalshorttermdebt,0) + totallongtermdebt - cashandcashequivalents)) earningsyield
+
+  from financials f, price p
+
+  where
+    f.primarysymbol = p.primarysymbol
+    and ebit
+    and totalcurrentassets
+    and totalcurrentliabilities
+    and totalassets
+    and sharesoutstanding
+    and closingprice
+    and totallongtermdebt
+    and cashandcashequivalents
+
+/*
+ *     1661 - all not null
+ *     3628 - ifnull on intangibleassets, totalshorttermdebt
+ */
+
+
+
