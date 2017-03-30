@@ -2,6 +2,7 @@ package com.magicformula.main;
 
 import com.magicformula.process.PopulateFinancials;
 import com.magicformula.process.PopulatePrice;
+import com.magicformula.process.PopulateRank;
 import org.kohsuke.args4j.*;
 
 import java.util.Properties;
@@ -42,7 +43,7 @@ public class MagicFormula {
         } else if (process.equals("Financial")) {
             PopulateFinancials.getInstance().populate();
         } else if (process.equals("Rank")) {
-
+            PopulateRank.getInstance().populate();
         }
     }
 }
