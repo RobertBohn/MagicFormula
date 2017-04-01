@@ -10,7 +10,15 @@ import java.util.concurrent.Executors;
 
 public class RankDao {
 
-    private static final String SELECT_ALL = "select primarysymbol, returnoncapital, earningsyield from performance";
+    private static final String SELECT_ALL = "select performance.primarysymbol, returnoncapital, earningsyield " +
+            "from performance, price, financials " +
+            "where " +
+            "performance.primarysymbol = price.primarysymbol " +
+            "and performance.primarysymbol = financials.primarysymbol " +
+            "and lasttradedate >= '2017-03-30' " +
+            "and periodenddate >= '2016-11-15' " +
+            "and closingprice * sharesoutstanding > 30000000 " +
+            "and averagedailyvolume > 50000";
 
     private static final String INSERT = "replace into rank " +
             "(primarysymbol, returnoncapitalrank, earningsyieldrank, combinedrank) " +

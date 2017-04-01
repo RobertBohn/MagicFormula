@@ -56,7 +56,7 @@ create table performance as
   select
     p.primarysymbol,
     ebit / ((totalcurrentassets - totalcurrentliabilities) + (totalassets - totalcurrentassets - ifnull(intangibleassets,0))) returnoncapital,
-    ebit / ((sharesoutstanding * closingprice) + (ifnull(totalshorttermdebt,0) + totallongtermdebt - cashandcashequivalents)) earningsyield
+    ebit / ((sharesoutstanding * closingprice) + (ifnull(totalshorttermdebt,0) + ifnull(totallongtermdebt,0) - cashandcashequivalents)) earningsyield
 
   from financials f, price p
 
@@ -68,13 +68,33 @@ create table performance as
     and totalassets
     and sharesoutstanding
     and closingprice
-    and totallongtermdebt
     and cashandcashequivalents
 
 /*
  *     1661 - all not null
  *     3628 - ifnull on intangibleassets, totalshorttermdebt
+ *     6044 - isnull on totallongtermdebt
  */
 
+/********************************************************************************/
 
 
+select
+  price.companyname,
+  rank.primarysymbol,
+  closingprice * sharesoutstanding/1000000 "MktCap M",
+  dividendpershare,
+  averagedailyvolume,
+  combinedrank,
+  earningsyieldrank,
+  returnoncapitalrank
+
+from rank, price, financials
+
+where
+  rank.primarysymbol = price.primarysymbol
+  and rank.primarysymbol = financials.primarysymbol
+
+order by combinedrank
+
+limit 100

@@ -5,7 +5,5 @@ null
 .settings
 .idea/
 target/
-/README.txt
 *.iml
 src/main/resources/config.properties
-README.txt
