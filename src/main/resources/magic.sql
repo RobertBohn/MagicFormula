@@ -24,7 +24,9 @@ intangibleassets         BIGINT default null,
 totalshorttermdebt       BIGINT default null,
 totallongtermdebt        BIGINT default null,
 cashandcashequivalents   BIGINT default null,
-unique key primarysymbol (primarysymbol)
+cashfromoperatingactivities  BIGINT default null,
+capitalexpenditures      BIGINT default null,
+ unique key primarysymbol (primarysymbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
@@ -83,6 +85,8 @@ select
   price.companyname,
   rank.primarysymbol,
   closingprice * sharesoutstanding/1000000 "MktCap M",
+  lasttradedate,
+  periodenddate,
   dividendpershare,
   averagedailyvolume,
   combinedrank,

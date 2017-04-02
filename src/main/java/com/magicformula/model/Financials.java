@@ -17,6 +17,8 @@ public class Financials {
     public Double totalshorttermdebt;
     public Double totallongtermdebt;
     public Double cashandcashequivalents;
+    public Double cashfromoperatingactivities;
+    public Double capitalexpenditures;
 
     public String getPrimarysymbol() {
         return primarysymbol;
@@ -96,5 +98,21 @@ public class Financials {
 
     public void setCashandcashequivalents(Double cashandcashequivalents) {
         this.cashandcashequivalents = cashandcashequivalents;
+    }
+
+    public Double getCashfromoperatingactivities() {
+        return cashfromoperatingactivities;
+    }
+
+    public void setCashfromoperatingactivities(Double cashfromoperatingactivities) {
+        this.cashfromoperatingactivities = cashfromoperatingactivities;
+    }
+
+    public Double getCapitalexpenditures() {
+        return capitalexpenditures;
+    }
+
+    public void setCapitalexpenditures(Double capitalexpenditures) {
+        this.capitalexpenditures = capitalexpenditures;
     }
 }
