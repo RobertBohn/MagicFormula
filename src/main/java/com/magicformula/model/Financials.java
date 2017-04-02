@@ -19,6 +19,7 @@ public class Financials {
     public Double cashandcashequivalents;
     public Double cashfromoperatingactivities;
     public Double capitalexpenditures;
+    public Double totalliabilities;
 
     public String getPrimarysymbol() {
         return primarysymbol;
@@ -114,5 +115,13 @@ public class Financials {
 
     public void setCapitalexpenditures(Double capitalexpenditures) {
         this.capitalexpenditures = capitalexpenditures;
+    }
+
+    public Double getTotalliabilities() {
+        return totalliabilities;
+    }
+
+    public void setTotalliabilities(Double totalliabilities) {
+        this.totalliabilities = totalliabilities;
     }
 }

@@ -9,8 +9,8 @@ import java.util.concurrent.Executors;
 public class FinancialsDao {
 
     private static final String INSERT = "replace into financials " +
-            "(primarysymbol, periodenddate, ebit, totalcurrentassets, totalcurrentliabilities, totalassets, intangibleassets, totalshorttermdebt, totallongtermdebt, cashandcashequivalents, cashfromoperatingactivities, capitalexpenditures) " +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+            "(primarysymbol, periodenddate, ebit, totalcurrentassets, totalcurrentliabilities, totalassets, intangibleassets, totalshorttermdebt, totallongtermdebt, cashandcashequivalents, cashfromoperatingactivities, capitalexpenditures, totalliabilities) " +
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private Connection connect;
 
@@ -35,6 +35,7 @@ public class FinancialsDao {
         setDouble(preparedStatement, i++, financials.getCashandcashequivalents());
         setDouble(preparedStatement, i++, financials.getCashfromoperatingactivities());
         setDouble(preparedStatement, i++, financials.getCapitalexpenditures());
+        setDouble(preparedStatement, i++, financials.getTotalliabilities());
 
         preparedStatement.executeUpdate();
         preparedStatement.close();
