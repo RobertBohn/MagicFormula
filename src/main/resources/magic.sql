@@ -81,6 +81,34 @@ create table performance as
 
 /********************************************************************************/
 
+create table valuations as
+
+  select
+    p.primarysymbol,
+    totalassets - totalliabilities BookValue,
+    (sharesoutstanding * closingprice) / (totalassets - totalliabilities) PriceToBook,
+    (sharesoutstanding * closingprice) + ifnull(totalshorttermdebt,0) + ifnull(totallongtermdebt,0) - cashandcashequivalents EnterpriseValue,
+    cashfromoperatingactivities + capitalexpenditures FreeCashFlow,
+    (cashfromoperatingactivities + capitalexpenditures)/((sharesoutstanding * closingprice) + ifnull(totalshorttermdebt,0) + ifnull(totallongtermdebt,0) - cashandcashequivalents) ReturnOnValue
+
+  from financials f, price p
+
+  where
+    f.primarysymbol = p.primarysymbol
+    and totalassets
+    and totalliabilities
+    and sharesoutstanding
+    and closingprice
+    and cashandcashequivalents
+    and cashfromoperatingactivities
+    and capitalexpenditures
+    and (totalassets - totalliabilities) > 20000000
+    and (cashfromoperatingactivities + capitalexpenditures) > 1000000
+
+
+/********************************************************************************/
+
+
 
 select
   price.companyname,

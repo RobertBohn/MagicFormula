@@ -1,6 +1,7 @@
 package com.magicformula.main;
 
 import com.magicformula.process.PopulateFinancials;
+import com.magicformula.process.PopulateGuru;
 import com.magicformula.process.PopulatePrice;
 import com.magicformula.process.PopulateRank;
 import org.kohsuke.args4j.*;
@@ -9,7 +10,7 @@ import java.util.Properties;
 
 public class MagicFormula {
 
-    @Option(name = "-p", aliases = "--process", required = true, usage = "process: Company|Financial|Price|Rank")
+    @Option(name = "-p", aliases = "--process", required = true, usage = "process: Yahoo|Guru")
     private String process;
 
     @Option(name = "-s", aliases = "--start", usage = "starting entry. default=''")
@@ -38,12 +39,10 @@ public class MagicFormula {
     private void run() throws Exception {
         properties.setProperty("start", start);
 
-        if (process.equals("Price")) {
+        if (process.equals("Yahoo")) {
             PopulatePrice.getInstance().populate();
-        } else if (process.equals("Financial")) {
-            PopulateFinancials.getInstance().populate();
-        } else if (process.equals("Rank")) {
-            PopulateRank.getInstance().populate();
+        } else if (process.equals("Guru")) {
+            PopulateGuru.getInstance().populate();
         }
     }
 }

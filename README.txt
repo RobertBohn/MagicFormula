@@ -1,3 +1,8 @@
+
+
+http://www.gurufocus.com/term/ev/AAPL/Enterprise-Value/Apple-Inc
+
+
 http://www.jarloo.com/yahoo_finance/
 http://finance.yahoo.com/d/quotes.csv?s=AAPL,GOOG,MSFT&f=snpa2d1j2d
 
