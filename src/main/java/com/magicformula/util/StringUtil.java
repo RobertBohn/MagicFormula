@@ -3,7 +3,8 @@ package com.magicformula.util;
 public class StringUtil {
 
     public static final String[] FINANCIAL_REGEX = {
-        "Mil",          // millions multiplier
+        "Mil",         // millions multiplier
+        "USD",         // US dollars
         "<.+>",        // tags
         "\\(.+\\)",    // parentheses
         "\\%|\\$|,| "  // expected characters

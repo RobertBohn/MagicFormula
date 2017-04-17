@@ -52,6 +52,17 @@ create table rank (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
 
+create table guru (
+  primarysymbol      varchar(10) not null,
+  returnoncapital    double(23,6) default null,
+  earningsyield      double(23,6) default null,
+  pricetobook        double(23,6) default null,
+  freecashflow       BIGINT default null,
+  enterprisevalue    BIGINT default null,
+  unique key primarysymbol (primarysymbol)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
 /********************************************************************************/
 
 create table performance as

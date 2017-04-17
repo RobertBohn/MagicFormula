@@ -22,9 +22,6 @@ public class StringUtilTest extends TestCase {
         return new TestSuite(StringUtilTest.class);
     }
 
-    /**
-     * extract Test
-     */
     public void testExtract() {
         String dataStart = "<div class=\"data_value\">";
         String dataEnd = "</div>";
