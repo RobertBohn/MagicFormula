@@ -2,6 +2,7 @@ package com.magicformula.dao;
 
 import com.magicformula.main.MagicFormula;
 import com.magicformula.model.Financials;
+import com.magicformula.util.SqlUtil;
 
 import java.sql.*;
 import java.util.concurrent.Executors;
@@ -25,26 +26,19 @@ public class FinancialsDao {
 
         preparedStatement.setString(i++, financials.getPrimarysymbol());
         preparedStatement.setDate(i++, financials.getPeriodenddate());
-        setDouble(preparedStatement, i++, financials.getEbit());
-        setDouble(preparedStatement, i++, financials.getTotalcurrentassets());
-        setDouble(preparedStatement, i++, financials.getTotalcurrentliabilities());
-        setDouble(preparedStatement, i++, financials.getTotalassets());
-        setDouble(preparedStatement, i++, financials.getIntangibleassets());
-        setDouble(preparedStatement, i++, financials.getTotalshorttermdebt());
-        setDouble(preparedStatement, i++, financials.getTotallongtermdebt());
-        setDouble(preparedStatement, i++, financials.getCashandcashequivalents());
-        setDouble(preparedStatement, i++, financials.getCashfromoperatingactivities());
-        setDouble(preparedStatement, i++, financials.getCapitalexpenditures());
-        setDouble(preparedStatement, i++, financials.getTotalliabilities());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getEbit());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getTotalcurrentassets());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getTotalcurrentliabilities());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getTotalassets());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getIntangibleassets());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getTotalshorttermdebt());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getTotallongtermdebt());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getCashandcashequivalents());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getCashfromoperatingactivities());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getCapitalexpenditures());
+        SqlUtil.setDouble(preparedStatement, i++, financials.getTotalliabilities());
 
         preparedStatement.executeUpdate();
         preparedStatement.close();
-    }
-
-    private void setDouble(PreparedStatement preparedStatement, int index, Double value) throws SQLException {
-        if (value == null)
-            preparedStatement.setNull(index, Types.DOUBLE);
-        else
-            preparedStatement.setDouble(index, value);
     }
 }
