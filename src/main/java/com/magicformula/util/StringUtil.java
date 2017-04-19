@@ -39,4 +39,12 @@ public class StringUtil {
 
         return Double.parseDouble(value)  * multiplier;
     }
+
+    public static String formatCompanyName(String company) {
+        company = company.replaceAll(   "\\,", "" );  // handle dots and commas
+
+        company = company.replaceAll(" ", "-");  // replace blanks with dashes
+
+        return company;
+    }
 }

@@ -3,7 +3,6 @@ package com.magicformula.model;
 public class Guru {
 
     private String primarysymbol;
-    public String primaryexchange;
     public String companyname;
     private Double returnoncapital;
     private Double earningsyield;
@@ -88,14 +87,6 @@ public class Guru {
 
     public void setEnterprisevalue(Double enterprisevalue) {
         this.enterprisevalue = enterprisevalue;
-    }
-
-    public String getPrimaryexchange() {
-        return primaryexchange;
-    }
-
-    public void setPrimaryexchange(String primaryexchange) {
-        this.primaryexchange = primaryexchange;
     }
 
     public String getCompanyname() {
