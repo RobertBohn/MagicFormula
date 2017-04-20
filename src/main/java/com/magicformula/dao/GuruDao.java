@@ -28,21 +28,18 @@ public class GuruDao {
     public void insert(Guru guru) throws SQLException {
         PreparedStatement preparedStatement = connect.prepareStatement(INSERT);
         int i=1;
-
         preparedStatement.setString(i++, guru.getPrimarysymbol());
         SqlUtil.setDouble(preparedStatement, i++, guru.getReturnoncapital());
         SqlUtil.setDouble(preparedStatement, i++, guru.getEarningsyield());
         SqlUtil.setDouble(preparedStatement, i++, guru.getPricetobook());
         SqlUtil.setDouble(preparedStatement, i++, guru.getFreecashflow());
-        SqlUtil.setDouble(preparedStatement, i++, guru.getEnterprisevalue());
-
+        SqlUtil.setDouble(preparedStatement, i, guru.getEnterprisevalue());
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
 
     public List<Guru> getGurus() throws SQLException {
         List<Guru> gurus = new LinkedList<Guru>();
-
         String statement = String.format(SELECT, StringUtil.buildIntoString(MagicFormula.properties.getProperty("start")));
         PreparedStatement preparedStatement = connect.prepareStatement(statement);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -53,7 +50,6 @@ public class GuruDao {
             gurus.add(guru);
         }
         resultSet.close();
-
         return gurus;
     }
 }
