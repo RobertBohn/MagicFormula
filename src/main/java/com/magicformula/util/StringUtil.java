@@ -25,7 +25,7 @@ public class StringUtil {
         return theString.substring(start + startingPhrase.length(), start + end);
     }
 
-    public static double parseFinancialValue(String value) throws Exception {
+    public static Double parseFinancialValue(String value) throws Exception {
 
         Double multiplier = 1.0;
 
@@ -37,14 +37,21 @@ public class StringUtil {
             value = value.replaceAll(regEx, "");
         }
 
-        return Double.parseDouble(value)  * multiplier;
+        try {
+            return Double.parseDouble(value) * multiplier;
+        } catch (NumberFormatException ex) {
+            if (ex.getMessage().equals("empty String")) {
+                return null;
+            } else {
+                throw new Exception(ex.getMessage());
+            }
+        }
     }
 
     public static String formatCompanyName(String company) {
-        company = company.replaceAll(   "\\,", "" );  // handle dots and commas
-
-        company = company.replaceAll(" ", "-");  // replace blanks with dashes
-
+        company = company.replaceAll(" \\/\\w+\\/", "");  // remove ending state abbreviations:  /DE/
+        company = company.replaceAll("\\,", "");          // remove periods and commas
+        company = company.replaceAll(" ", "-");           // replace blanks with dashes
         return company;
     }
 }

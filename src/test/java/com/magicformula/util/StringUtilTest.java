@@ -52,6 +52,17 @@ public class StringUtilTest extends TestCase {
             assertTrue(StringUtil.parseFinancialValue("5.97 (As of Today)") == 5.97);
             assertTrue(StringUtil.parseFinancialValue("369.28% (As of Dec. 2016)") == 369.28);
             assertTrue(StringUtil.parseFinancialValue("9.85% (As of Dec. 2016)") == 9.85);
+            assertTrue(StringUtil.parseFinancialValue(" (As of Today)") == null);
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testFormatCompanyName() {
+        try {
+            assertTrue(StringUtil.formatCompanyName("APPLE INC").equalsIgnoreCase("Apple-Inc"));
+            assertTrue(StringUtil.formatCompanyName("NEWMONT MINING CORP /DE/").equalsIgnoreCase("Newmont-Mining-Corp"));
+            assertTrue(StringUtil.formatCompanyName("AMAZON COM INC").equalsIgnoreCase("Amazon-com-Inc"));
         } catch (Exception e) {
             assertTrue(false);
         }

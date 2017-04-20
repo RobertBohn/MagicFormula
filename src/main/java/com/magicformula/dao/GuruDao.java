@@ -13,8 +13,8 @@ import java.util.concurrent.Executors;
 public class GuruDao {
 
     private static final String INSERT = "replace into guru " +
-            "(primarysymbol, returnoncapital, earningsyield, pricetobook, freecashflow, enterprisevalue) " +
-            "values(?,?,?,?,?,?)";
+            "(primarysymbol, returnoncapital, earningsyield, pricetobook, freecashflow, enterprisevalue, updatedate) " +
+            "values(?,?,?,?,?,?,now())";
 
     private static final String SELECT = "select primarysymbol, companyname from company where primarysymbol in (%s)";
 

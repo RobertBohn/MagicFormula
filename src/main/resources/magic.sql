@@ -59,6 +59,7 @@ create table guru (
   pricetobook        double(23,6) default null,
   freecashflow       BIGINT default null,
   enterprisevalue    BIGINT default null,
+  updatedate         DATETIME default null,
   unique key primarysymbol (primarysymbol)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 

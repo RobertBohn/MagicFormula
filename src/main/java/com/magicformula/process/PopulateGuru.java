@@ -23,14 +23,10 @@ public class PopulateGuru {
     public void populate() throws Exception {
         guruDao = new GuruDao();
 
-        System.out.println();
-
-
         List<Guru> gurus = guruDao.getGurus();
         for (Guru guru : gurus) {
-            System.out.println(guru.getPrimarysymbol() + ": " + guru.getCompanyname());
+            System.out.println(guru.getPrimarysymbol() + ": [" + guru.getCompanyname() + "]");
 
-            /*
             guru.setPricetobook(getVariable(guru, Guru.VARIABLES.P2B));
             guru.setReturnoncapital(getVariable(guru, Guru.VARIABLES.ROC));
             guru.setEarningsyield(getVariable(guru, Guru.VARIABLES.EY));
@@ -38,7 +34,6 @@ public class PopulateGuru {
             guru.setFreecashflow(getVariable(guru, Guru.VARIABLES.FCF));
 
             guruDao.insert(guru);
-            */
         }
     }
 
