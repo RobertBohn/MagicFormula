@@ -43,7 +43,7 @@ public class GuruDao {
     public List<Guru> getGurus() throws SQLException {
         List<Guru> gurus = new LinkedList<Guru>();
 
-        String statement = String.format(SELECT, MagicFormula.properties.getProperty("start"));
+        String statement = String.format(SELECT, StringUtil.buildIntoString(MagicFormula.properties.getProperty("start")));
         PreparedStatement preparedStatement = connect.prepareStatement(statement);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {

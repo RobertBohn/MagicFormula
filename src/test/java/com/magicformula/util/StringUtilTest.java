@@ -67,4 +67,13 @@ public class StringUtilTest extends TestCase {
             assertTrue(false);
         }
     }
+
+    public void testBuildIntoString() {
+        try {
+            assertTrue(StringUtil.buildIntoString("AAPL").equalsIgnoreCase("'AAPL'"));
+            assertTrue(StringUtil.buildIntoString("AAPL,AMZN").equalsIgnoreCase("'AAPL','AMZN'"));
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+    }
 }

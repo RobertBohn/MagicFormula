@@ -54,4 +54,9 @@ public class StringUtil {
         company = company.replaceAll(" ", "-");           // replace blanks with dashes
         return company;
     }
+
+    public static String buildIntoString(String theString) {
+        theString = theString.replaceAll(",","','");
+        return "'" + theString + "'";
+    }
 }
