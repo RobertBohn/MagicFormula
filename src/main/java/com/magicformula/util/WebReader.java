@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -45,6 +46,8 @@ public class WebReader {
             connection.connect();
             return connection.getInputStream();
         } catch (SocketTimeoutException ex) {
+            return null;
+        } catch (ConnectException ex) {
             return null;
         }
     }
