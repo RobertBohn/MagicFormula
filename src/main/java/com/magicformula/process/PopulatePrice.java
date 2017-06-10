@@ -19,7 +19,7 @@ public class PopulatePrice {
     private CompanyDao companyDao;
     private PriceDao priceDao;
     private CSVParser csvParser;
-    private static final String YOHOO = "http://finance.yahoo.com/d/quotes.csv?s=%s&f=snpa2d1j2d";
+    private static final String YOHOO = "http://download.finance.yahoo.com/d/quotes.csv?s=%s&f=snpa2d1j2d";
     private static DateTimeFormatter inputDateFormat = DateTimeFormat.forPattern("MM/dd/yyyy");
     private static final int PRIMARY_SYMBOL = 0;
     private static final int COMPANY_NAME = 1;
