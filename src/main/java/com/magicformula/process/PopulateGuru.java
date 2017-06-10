@@ -10,7 +10,7 @@ import java.util.List;
 public class PopulateGuru {
 
     private static final String API_FORMAT = "%s/%s/%s/%s/%s";
-    private static final String API_URL = "http://www.gurufocus.com/term/";
+    private static final String API_URL = "https://www.gurufocus.com/term/";
     private static final String DATA_START = "<div class=\"data_value\">";
     private static final String DATA_END = "</div>";
 
