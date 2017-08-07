@@ -1,0 +1,33 @@
+
+truncate table guru
+
+java -jar target/MagicFormula-1.0-SNAPSHOT.jar -p Yahoo
+
+https://www.magicformulainvesting.com/
+
+java -jar target/MagicFormula-1.0-SNAPSHOT.jar -p Guru -s "OMC,PBI,QCOM,RHI,SNI,RGR,SYNT,TGNA"
+
+# remove stocks already held
+delete from guru where primarysymbol in ('AMCX','ESRX','GILD','GME','CSCO')
+
+# remove stocks we have banned
+delete from guru where primarysymbol in ('AGX','AMGN','AOBC','RGR', 'USNA', 'GHC')
+
+
+# no data
+SET SQL_SAFE_UPDATES = 0;
+delete from guru where pricetobook is null;
+SET SQL_SAFE_UPDATES = 1;
+
+
+
+select
+guru.primarysymbol "Symbol",
+price.companyname "Company",
+guru.earningsyield/100 "Earnings Yield",
+guru.returnoncapital/100 "Return on Capital",
+guru.pricetobook "Price To Book",
+guru.freecashflow/guru.enterprisevalue "FCF/EV",
+price.dividendpershare / price.closingprice "Dividend Yield"
+from guru, price
+where guru.primarysymbol = price.primarysymbol

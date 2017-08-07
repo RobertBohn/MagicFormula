@@ -4,6 +4,8 @@ public class StringUtil {
 
     public static final String[] FINANCIAL_REGEX = {
         "Mil",         // millions multiplier
+        "M",           // millions multiplier
+        "B",           // billions multiplier
         "USD",         // US dollars
         "<.+>",        // tags
         "\\(.+\\)",    // parentheses
@@ -17,7 +19,7 @@ public class StringUtil {
             throw new Exception("Starting phrase not found");
         }
 
-        int end = theString.substring(start).indexOf(endingPhrase);
+        int end = theString.substring(start + startingPhrase.length()).indexOf(endingPhrase) + startingPhrase.length();
         if (end < 0) {
             throw new Exception("Ending phrase not found");
         }
@@ -31,6 +33,14 @@ public class StringUtil {
 
         if (value.contains(" Mil ")) {
             multiplier = 1000000.0;
+        }
+
+        if (value.contains("M")) {
+            multiplier = 1000000.0;
+        }
+
+        if (value.contains("B")) {
+            multiplier = 1000000000.0;
         }
 
         for (String regEx : FINANCIAL_REGEX) {

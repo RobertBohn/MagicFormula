@@ -12,20 +12,24 @@ public class Guru {
 
 
     public static enum VARIABLES {
-        ROC("returnoncapital", "ROC_JOEL", "ROC-Joel-Greenblatt-"),
-        EY("earningsyield", "earning_yield_greenblatt", "Earnings-Yield-Joel-Greenblatt-"),
-        P2B("pricetobook", "p2tangible_book", "Price-to-Tangible-Book"),
-        FCF("freecashflow", "total_freecashflow", "Free-Cash-Flow"),
-        EV("enterprisevalue", "ev", "Enterprise-Value");
+        ROC("returnoncapital", "ROC_JOEL", "ROC-Joel-Greenblatt-", "Current: ", "</strong>"),
+        EY("earningsyield", "earning_yield_greenblatt", "Earnings-Yield-Joel-Greenblatt-", "Current: ", "</strong>"),
+        P2B("pricetobook", "p2tangible_book", "Price-to-Tangible-Book", "Current: ", "</strong>"),
+        FCF("freecashflow", "total_freecashflow", "Free-Cash-Flow", "has a Free Cash Flow: ", "  "),
+        EV("enterprisevalue", "ev", "Enterprise-Value", "<th>Enterprise Value :", "</th>");
 
         private String column;
         private String term1;
         private String term2;
+        private String start;
+        private String stop;
 
-        VARIABLES(String column, String term1, String term2) {
+        VARIABLES(String column, String term1, String term2, String start, String stop) {
             this.column = column;
             this.term1 = term1;
             this.term2 = term2;
+            this.start = start;
+            this.stop = stop;
         }
 
         public String column() {
@@ -39,6 +43,15 @@ public class Guru {
         public String term2() {
             return term2;
         }
+
+        public String start() {
+            return start;
+        }
+
+        public String stop() {
+            return stop;
+        }
+
     };
 
     public String getPrimarysymbol() {
